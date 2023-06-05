@@ -1,4 +1,4 @@
-class Pokemon {
+class Avenger {
     ///atributos
     nombre;
     tipo;

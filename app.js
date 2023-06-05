@@ -1,31 +1,83 @@
+let luchador = []
+
+////traerme los elementos del dom
+const selectluchadores = document.getElementById('productos');
+const btnAgregar = document.getElementById('agregar');
 
 
-alert(" Bienvenido a la UFC !!!");
-alert("HAGA SUS APUESTAS!");
+luchador.push( new Avenger('iron-man','androide',10,'shield','misiles',550,500));
+luchador.push( new Avenger('spider-man','araña',2,'tio Ben','telaaraña',300,150));
+luchador.push( new Avenger('thor','racknaro','iron-man','odin','impac trueno',200,200));
+luchador.push( new Avenger('hulk','verde',2,'bruce banner','cadena al cuello',600,750));
 
-let total;
+localStorage.setItem('avengersLocal',JSON.stringify(luchador));
 
-        let precioItem1= Number(prompt("CUANTO POR EL LUCHADOR 1:"));
+allEventListeners();
 
-        while(precioItem1<0 ){
-            precioItem1= Number(prompt("POR FAVOR INGRESE UN NUMERO VALIDO:"));
-        } 
+
+function allEventListeners()
+{
+  ////agregamos un escuchador del evento cuando el DOM se carga
+  window.addEventListener('DOMContentLoaded', traerItems);
+
+  ///event listener de agregar un producto al carrito
+  btnAgregar.addEventListener('click', (e) =>
+  {
+     e.preventDefault(); ///evito el refresque
+    const productoSeleccionado = luchador[+selectluchadores.value]; ///obtengo el producto elegido
+    console.log(productoSeleccionado);
     
-    
-        let precioItem2= Number(prompt("CUANTO POR EL LUCHADOR 2:"));
-       
-        while( precioItem2<0 ){
-             precioItem2= Number(prompt("POR FAVOR INGRESE UN NUMERO VALIDO:"));
-        } 
+  });
 
-        total=precioItem1 + precioItem2;
+}
 
 
+function traerItems()
+{
+  ///traer los productos del localStorage
+  ///si no hay nada inicializara stock en vacio []
+  luchadoresufc = JSON.parse(localStorage.getItem('avengersLocal')) || [];
+  popularDropDown();
+}
 
-const luchador = [];
+///rellenamos el dropDown de productos
+function popularDropDown() {
+    luchadoresufc.forEach((product,index) => {
+      const option = document.createElement('option');
+      option.textContent = `${product.nombre}: ${product.tipo}`;
+      option.value = index; ///el indice donde se encuentra este producto
+      selectluchadores.appendChild(option);
+    });
+  }
 
-luchador.push( new Pokemon('iron-man','androide',10,'shield','misiles',500,100));
-luchador.push( new Pokemon('spider-man','araña',2,'tio Ben','telaaraña',300,550));
+
+
+
+
+
+
+
+/*
+
+  let total;
+
+  let precioItem1= Number(prompt("CUANTO POR EL LUCHADOR 1:"));
+
+  while(precioItem1<0 ){
+      precioItem1= Number(prompt("POR FAVOR INGRESE UN NUMERO VALIDO:"));
+  } 
+
+
+  let precioItem2= Number(prompt("CUANTO POR EL LUCHADOR 2:"));
+ 
+  while( precioItem2<0 ){
+       precioItem2= Number(prompt("POR FAVOR INGRESE UN NUMERO VALIDO:"));
+  } 
+
+  total=precioItem1 + precioItem2;
+
+
+
 
 
 let opcion="si";
@@ -62,5 +114,5 @@ do{
 
 }while(opcion=="si");
 
-
+*/
 
